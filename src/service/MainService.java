@@ -51,13 +51,9 @@ public class MainService {
 		System.out.println("-----------------------------------");
 		
 		Course c1 = new Course();
-		allCourses.add(c1);
 		Course c2 = new Course("Data Structure", 2, pr3);
-		allCourses.add(c2);
 		Course c3 = new Course("Networking", 4, pr4);
-		allCourses.add(c3);
-		Course c4 = new Course("JAVA", 4, pr4);
-		allCourses.add(c4);
+		Course c4 = new Course("JAVA", 4, pr2);
 		
 		allCourses.addAll(Arrays.asList(c1, c2, c3));
 		
@@ -80,6 +76,10 @@ public class MainService {
 		allGrades.add(gr6);
 		Grade gr7 = new Grade(8, st2, c4);
 		allGrades.add(gr7);
+		Grade gr8 = new Grade(8, st1, c4);
+		allGrades.add(gr8);
+		Grade gr9 = new Grade(8, st1, c3);
+		allGrades.add(gr9);
 		
 		
 		
@@ -93,21 +93,35 @@ public class MainService {
 		System.out.println("-----------------------------------");
 		
 		try {
-			System.out.println("AVG:" + st3.getName() + " " + st3.getSurname() + " -> " + calculateAVGForStudent(st3));
-			System.out.println("AVG:" + st2.getName() + " " + st2.getSurname() + " -> " + calculateAVGForStudent(st2));
+			System.out.println("AVG: " + st3.getName() + " " + st3.getSurname() + " -> " + calculateAVGForStudent(st3));
+			System.out.println("AVG: " + st2.getName() + " " + st2.getSurname() + " -> " + calculateAVGForStudent(st2));
 			System.out.println("-----------------------------------");
-			System.out.println("WEIGHTED AVG:" + st3.getName() + " " + st3.getSurname() + " -> " + calculateWeightedAVGforStudent(st3));
-			System.out.println("WEIGHTED AVG:" + st2.getName() + " " + st2.getSurname() + " -> " + calculateWeightedAVGforStudent(st2));
+			
+			System.out.println("WEIGHTED AVG: " + st3.getName() + " " + st3.getSurname() + " -> " + calculateWeightedAVGforStudent(st3));
+			System.out.println("WEIGHTED AVG: " + st2.getName() + " " + st2.getSurname() + " -> " + calculateWeightedAVGforStudent(st2));
 			System.out.println("-----------------------------------");
-			System.out.println("COURSE AVG:" + c2.getTitle() + " -> " + courseAVG(c2));
-			System.out.println("COURSE AVG:" + c3.getTitle() + " -> " + courseAVG(c3));
-			System.out.println("COURSE AVG:" + c4.getTitle() + " -> " + courseAVG(c4));
+			
+			System.out.println("COURSE AVG: " + c2.getTitle() + " -> " + courseAVG(c2));
+			System.out.println("COURSE AVG: " + c3.getTitle() + " -> " + courseAVG(c3));
+			System.out.println("COURSE AVG: " + c4.getTitle() + " -> " + courseAVG(c4));
 			System.out.println("-----------------------------------");
-			System.out.println("COURSES PER PROFESSOR:" + pr1.getName() + pr1.getSurname() + " -> " + coursesPerProfessor(pr1));
-			System.out.println("COURSES PER PROFESSOR: " + pr2.getName() + pr2.getSurname() + " -> " + coursesPerProfessor(pr2));
-			System.out.println("COURSES PER PROFESSOR" + pr3.getName() + pr3.getSurname() + " -> " + coursesPerProfessor(pr3));
-			System.out.println("COURSES PER PROFESSOR" + pr4.getName() + pr4.getSurname() + " -> " + coursesPerProfessor(pr4));
+			
+			System.out.println("COURSES PER PROFESSOR:" + pr1.getName() + " " +  pr1.getSurname() + " -> " + coursesPerProfessor(pr1));
+			System.out.println("COURSES PER PROFESSOR: " + pr2.getName() + " " + pr2.getSurname() + " -> " + coursesPerProfessor(pr2));
+			System.out.println("COURSES PER PROFESSOR: " + pr3.getName() + " " + pr3.getSurname() + " -> " + coursesPerProfessor(pr3));
+			System.out.println("COURSES PER PROFESSOR: " + pr4.getName() + " " + pr4.getSurname() + " -> " + coursesPerProfessor(pr4));
 			System.out.println("-----------------------------------");
+			
+			for(Student tempSt: allStudents) {
+				System.out.println(tempSt.getName() + " " + tempSt.getSurname() + " -> " + calculateAVGForStudent(tempSt));
+			}
+			System.out.println("-----------------------------------");
+			
+			sortStudents();
+			
+			for(Student tempSt: allStudents) {
+				System.out.println(tempSt.getName() + " " + tempSt.getSurname() + " -> " + calculateAVGForStudent(tempSt));
+			}
 			
 		}
 		catch (Exception e){
@@ -182,5 +196,26 @@ public class MainService {
 		
 		return count;
 	}
+	
+	public static void sortStudents() throws Exception {
+		
+		for(int i = 0; i < allStudents.size(); i++) {
+			for(int j = 0; j < allStudents.size(); j++) {
+				
+				Student tempI = allStudents.get(i);
+				Student tempJ = allStudents.get(j);
+				
+				if(calculateAVGForStudent(tempJ) < calculateAVGForStudent(tempI) ) {
+					Student temp = allStudents.get(i);
+					allStudents.set(i, allStudents.get(j));
+					allStudents.set(j,  temp);
+				}
+			}
+		}
+		
+	}
+	
+	
+	
 
 }
