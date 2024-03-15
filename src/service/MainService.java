@@ -40,7 +40,7 @@ public class MainService {
 		
 		Student st1 = new Student(); //Lara Bernardes student
 		Student st2 = new Student("Viktors", "Kokin", "123456-12345");
-		Student st3 = new Student("Davyd", "Akimov", "123456-12345");
+		Student st3 = new Student("Davyd", "Akimov", "123436-12245");
 		
 		allStudents.addAll(Arrays.asList(st1, st2, st3));
 		
@@ -122,6 +122,39 @@ public class MainService {
 			for(Student tempSt: allStudents) {
 				System.out.println(tempSt.getName() + " " + tempSt.getSurname() + " -> " + calculateAVGForStudent(tempSt));
 			}
+			
+			System.out.println("-----------------------------------");
+			System.out.println("Retrieving Viktors: ");
+			Student temp = retrieveStudentByPersonCode("123456-12345");
+			System.out.println("Retrieved student: " + temp);
+			
+			
+			System.out.println("-----------------------------------");
+			System.out.println("Creating Sara: ");
+			createStudent("Sara", "Green", "234454-23445");
+			for(Student tempSt: allStudents) {
+				System.out.println(tempSt);
+			}
+			
+			
+			System.out.println("-----------------------------------");
+			System.out.println("Deleting Davyd: ");
+			deleteStudentByPersonCode("123436-12245");
+			for(Student tempSt: allStudents) {
+				System.out.println(tempSt);
+			}
+			
+			System.out.println("-----------------------------------");
+			System.out.println("Updating Viktors last name: ");
+			updateStudentByPersonCode("Viktors", "Berzins", "123456-12345");
+			for(Student tempSt: allStudents) {
+				System.out.println(tempSt);
+			}
+			
+			System.out.println("-----------------------------------");
+
+			
+			
 			
 		}
 		catch (Exception e){

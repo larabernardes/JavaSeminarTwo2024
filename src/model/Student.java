@@ -1,6 +1,7 @@
 package model;
+// TODO
 
-public class Student {
+public class Student extends Person {
 	
 	//1. variables
 	private long sID;
