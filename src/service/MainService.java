@@ -39,8 +39,8 @@ public class MainService {
 		
 		
 		Student st1 = new Student(); //Lara Bernardes student
-		Student st2 = new Student("Viktors", "Kokin");
-		Student st3 = new Student("Davyd", "Akimov");
+		Student st2 = new Student("Viktors", "Kokin", "123456-12345");
+		Student st3 = new Student("Davyd", "Akimov", "123456-12345");
 		
 		allStudents.addAll(Arrays.asList(st1, st2, st3));
 		
