@@ -278,6 +278,25 @@ public class MainService {
 	}
 	
 	
+	public static void updateStudentByPersonCode(String name, String surname, String inputPersonCode) throws Exception {
+		// 1. do validation
+		if(inputPersonCode == null || surname == null || name == null) throw new Exception("Problems with input");
+		
+		// 2. search the student by its personCode
+		for(Student tempStud: allStudents) {
+			if(tempStud.getPersonCode().equals(inputPersonCode)) {
+				// 3. update name and surname
+				tempStud.setName(name);
+				tempStud.setSurname(surname);
+				return;
+			}	
+		}
+		// 4. throws exception if person code does not exist
+		throw new Exception("Person code does not exist!");
+		
+	}
+	
+	
 	
 	
 	
