@@ -297,6 +297,26 @@ public class MainService {
 	}
 	
 	
+	public static void deleteStudentByPersonCode(String inputPersonCode) throws Exception {
+		// 1. do validation
+		if(inputPersonCode == null) throw new Exception("Problems with input");
+		
+		// 2. search the student by its personCode
+		for(Student tempStud: allStudents) {
+			if(tempStud.getPersonCode().equals(inputPersonCode)) {
+				// 3. remove student
+				allStudents.remove(tempStud);
+				return;
+			}	
+		}
+		// 4. throws exception if person code does not exist
+		throw new Exception("Person code does not exist!");
+		
+	}
+	
+	
+	
+	
 	
 	
 	
