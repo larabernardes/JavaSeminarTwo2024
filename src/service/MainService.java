@@ -18,9 +18,9 @@ public class MainService {
 
 	public static void main(String[] args) {
 		Professor pr1 = new Professor();//John Big - default Professor
-		Professor pr2 = new Professor("Karina", "Skirmante", Degree.mg);
-		Professor pr3 = new Professor("Estere", "Vitola", Degree.mg);
-		Professor pr4 = new Professor("Marcis", "Naktins", Degree.mg);
+		Professor pr2 = new Professor("Karina", "Skirmante", "111111-11111", Degree.mg);
+		Professor pr3 = new Professor("Estere", "Vitola", "222222-22222",Degree.mg);
+		Professor pr4 = new Professor("Marcis", "Naktins", "333333-33333", Degree.mg);
 		
 		allProfessors.addAll(Arrays.asList(pr1, pr2, pr3, pr4));
 		
@@ -346,6 +346,8 @@ public class MainService {
 		throw new Exception("Person code does not exist!");
 		
 	}
+	
+	
 	
 	
 	
