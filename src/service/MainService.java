@@ -236,6 +236,50 @@ public class MainService {
 	
 	// calculates how many CP professor need to lead
 	
+	
+	// CRUD C - create, R - retrieve, U - update, D - delete
+	
+	public static Student retrieveStudentByPersonCode(String personCode) throws Exception {
+		//1. do validation
+		if(personCode == null) throw new Exception("Problems with input");
+		//2. need to go through all students list and need to check if this student is in the list
+		for(Student tempStud: allStudents) {
+			if(tempStud.getPersonCode().equals(personCode)) {
+				// 3. if it is - return student
+				return tempStud;
+			}
+		}
+		//4. throw exception if it is not
+		 throw new Exception("Student is not found");
+	}
+	
 
+	public static void createStudent(String name, String surname, String inputPersonCode) throws Exception {
+		// 1. validation
+		if(inputPersonCode == null || surname == null || name == null) throw new Exception("Problems with input");
+		
+		// 2. need to go through every student in the allStudents array list
+		
+		for(Student tempStud: allStudents) {
+			// 3. need to check if there is already student with the same personCode
+			if(tempStud.getPersonCode().equals(inputPersonCode)){
+				// 4. if it is - throw an exception 
+				throw new Exception("Student already exists!");
+			}
+			
+		}
+		
+		// 5 - if it is not - create a new student 
+		Student student = new Student(name, surname, inputPersonCode);
+		
+		// 6. store this student in allStudents array list
+		allStudents.add(student);
+		
+	}
+	
+	
+	
+	
+	
 
 }
