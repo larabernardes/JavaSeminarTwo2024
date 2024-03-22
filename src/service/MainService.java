@@ -8,11 +8,11 @@ import model.Degree;
 import model.Grade;
 import model.Professor;
 import model.Student;
+import model.Person;
 
 public class MainService {
 	
-	private static ArrayList<Professor> allProfessors = new ArrayList<Professor>();
-	private static ArrayList<Student> allStudents = new ArrayList<Student>();
+	private static ArrayList<Person> allPersons = new ArrayList<Person>();
 	private static ArrayList<Course> allCourses = new ArrayList<Course>();
 	private static ArrayList<Grade> allGrades = new ArrayList<Grade>();
 
@@ -22,29 +22,16 @@ public class MainService {
 		Professor pr3 = new Professor("Estere", "Vitola", "222222-22222",Degree.mg);
 		Professor pr4 = new Professor("Marcis", "Naktins", "333333-33333", Degree.mg);
 		
-		allProfessors.addAll(Arrays.asList(pr1, pr2, pr3, pr4));
-		
-		//TO DO: take a look to ArrayList class in JAVA documentation
-		for(int i = 0; i < allProfessors.size(); i++) {
-			System.out.println(allProfessors.get(i));
-		}
-		
-		System.out.println("-----------------------------------");
-		
-		for(Professor tempPr: allProfessors) {
-			System.out.println(tempPr);
-		}
-
-		System.out.println("-----------------------------------");
+		allPersons.addAll(Arrays.asList(pr1, pr2, pr3, pr4));
 		
 		
 		Student st1 = new Student(); //Lara Bernardes student
 		Student st2 = new Student("Viktors", "Kokin", "123456-12345");
 		Student st3 = new Student("Davyd", "Akimov", "123436-12245");
 		
-		allStudents.addAll(Arrays.asList(st1, st2, st3));
+		allPersons.addAll(Arrays.asList(st1, st2, st3));
 		
-		for(Student tempPr: allStudents) {
+		for(Person tempPr: allPersons) {
 			System.out.println(tempPr);
 		}
 		
@@ -112,15 +99,21 @@ public class MainService {
 			System.out.println("COURSES PER PROFESSOR: " + pr4.getName() + " " + pr4.getSurname() + " -> " + coursesPerProfessor(pr4));
 			System.out.println("-----------------------------------");
 			
-			for(Student tempSt: allStudents) {
-				System.out.println(tempSt.getName() + " " + tempSt.getSurname() + " -> " + calculateAVGForStudent(tempSt));
+			for(Person tempP: allPersons) {
+				if (tempP instanceof Student) {
+					Student tempSt = (Student)tempP;
+					System.out.println(tempSt.getName() + " " + tempSt.getSurname() + " -> " + calculateAVGForStudent(tempSt));
+				}
 			}
 			System.out.println("-----------------------------------");
 			
-			sortStudents();
+			// sortStudents();
 			
-			for(Student tempSt: allStudents) {
-				System.out.println(tempSt.getName() + " " + tempSt.getSurname() + " -> " + calculateAVGForStudent(tempSt));
+			for(Person tempP: allPersons) {
+				if (tempP instanceof Student) {
+					Student tempSt = (Student)tempP;
+					System.out.println(tempSt.getName() + " " + tempSt.getSurname() + " -> " + calculateAVGForStudent(tempSt));
+				}
 			}
 			
 			System.out.println("-----------------------------------");
@@ -132,23 +125,34 @@ public class MainService {
 			System.out.println("-----------------------------------");
 			System.out.println("Creating Sara: ");
 			createStudent("Sara", "Green", "234454-23445");
-			for(Student tempSt: allStudents) {
-				System.out.println(tempSt);
+			for(Person tempP: allPersons) {
+				if (tempP instanceof Student) {
+					Student tempSt = (Student)tempP;
+					System.out.println(tempSt);
+				}
 			}
 			
 			
 			System.out.println("-----------------------------------");
 			System.out.println("Deleting Davyd: ");
 			deleteStudentByPersonCode("123436-12245");
-			for(Student tempSt: allStudents) {
-				System.out.println(tempSt);
+			
+			for(Person tempP: allPersons) {
+				if (tempP instanceof Student) {
+					Student tempSt = (Student)tempP;
+					System.out.println(tempSt);
+				}
 			}
 			
 			System.out.println("-----------------------------------");
 			System.out.println("Updating Viktors last name: ");
 			updateStudentByPersonCode("Viktors", "Berzins", "123456-12345");
-			for(Student tempSt: allStudents) {
-				System.out.println(tempSt);
+			
+			for(Person tempP: allPersons) {
+				if (tempP instanceof Student) {
+					Student tempSt = (Student)tempP;
+					System.out.println(tempSt);
+				}
 			}
 			
 			System.out.println("-----------------------------------");
@@ -230,6 +234,7 @@ public class MainService {
 		return count;
 	}
 	
+	/*
 	public static void sortStudents() throws Exception {
 		
 		for(int i = 0; i < allStudents.size(); i++) {
@@ -247,6 +252,7 @@ public class MainService {
 		}
 		
 	}
+	*/
 	
 	// calculate how many professors have PhD as degree
 	
@@ -254,9 +260,14 @@ public class MainService {
 		
 		int count = 0;
 		
-		for(Professor tempProf: allProfessors) {
-			if(tempProf.getProfDegree().equals(Degree.phd)) {
-				count++;
+		for(Person tempP : allPersons) {
+			
+			if(tempP instanceof Professor){
+				Professor tempProf = (Professor)tempP;
+				
+				if(tempProf.getProfDegree().equals(Degree.phd)) {
+					count++;
+				}
 			}
 			
 		}
@@ -275,12 +286,14 @@ public class MainService {
 	public static Student retrieveStudentByPersonCode(String personCode) throws Exception {
 		//1. do validation
 		if(personCode == null) throw new Exception("Problems with input");
+		
 		//2. need to go through all students list and need to check if this student is in the list
-		for(Student tempStud: allStudents) {
-			if(tempStud.getPersonCode().equals(personCode)) {
-				// 3. if it is - return student
-				return tempStud;
+		for(Person tempP: allPersons) {
+			if(tempP instanceof Student && tempP.getPersonCode().equals(personCode)){
+					// 3. if it is - return student
+					return (Student)tempP;
 			}
+			
 		}
 		//4. throw exception if it is not
 		 throw new Exception("Student is not found");
@@ -293,11 +306,12 @@ public class MainService {
 		
 		// 2. need to go through every student in the allStudents array list
 		
-		for(Student tempStud: allStudents) {
+		for(Person tempP: allPersons) {
 			// 3. need to check if there is already student with the same personCode
-			if(tempStud.getPersonCode().equals(inputPersonCode)){
-				// 4. if it is - throw an exception 
-				throw new Exception("Student already exists!");
+			if(tempP instanceof Student && tempP.getPersonCode().equals(inputPersonCode)){
+				
+					// 4. if it is - throw an exception 
+					throw new Exception("Student already exists!");
 			}
 			
 		}
@@ -306,7 +320,7 @@ public class MainService {
 		Student student = new Student(name, surname, inputPersonCode);
 		
 		// 6. store this student in allStudents array list
-		allStudents.add(student);
+		allPersons.add(student);
 		
 	}
 	
@@ -316,14 +330,16 @@ public class MainService {
 		if(inputPersonCode == null || surname == null || name == null) throw new Exception("Problems with input");
 		
 		// 2. search the student by its personCode
-		for(Student tempStud: allStudents) {
-			if(tempStud.getPersonCode().equals(inputPersonCode)) {
-				// 3. update name and surname
-				tempStud.setName(name);
-				tempStud.setSurname(surname);
-				return;
+		for(Person tempP: allPersons) {
+			
+			if(tempP instanceof Student && tempP.getPersonCode().equals(inputPersonCode))
+					// 3. update name and surname
+					tempP.setName(name);
+					tempP.setSurname(surname);
+					return;
 			}	
-		}
+			
+
 		// 4. throws exception if person code does not exist
 		throw new Exception("Person code does not exist!");
 		
@@ -335,13 +351,14 @@ public class MainService {
 		if(inputPersonCode == null) throw new Exception("Problems with input");
 		
 		// 2. search the student by its personCode
-		for(Student tempStud: allStudents) {
-			if(tempStud.getPersonCode().equals(inputPersonCode)) {
-				// 3. remove student
-				allStudents.remove(tempStud);
-				return;
+		for(Person tempP: allPersons) {
+			if(tempP instanceof Student && tempP.getPersonCode().equals(inputPersonCode)){
+					// 3. remove student
+					allPersons.remove(tempP);
+					return;
 			}	
 		}
+		
 		// 4. throws exception if person code does not exist
 		throw new Exception("Person code does not exist!");
 		
