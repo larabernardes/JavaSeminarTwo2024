@@ -107,7 +107,7 @@ public class MainService {
 			}
 			System.out.println("-----------------------------------");
 			
-			// sortStudents();
+			sortStudents();
 			
 			for(Person tempP: allPersons) {
 				if (tempP instanceof Student) {
@@ -234,25 +234,30 @@ public class MainService {
 		return count;
 	}
 	
-	/*
+	
 	public static void sortStudents() throws Exception {
 		
-		for(int i = 0; i < allStudents.size(); i++) {
-			for(int j = 0; j < allStudents.size(); j++) {
+		for(int i = 0; i < allPersons.size(); i++) {
+			
+			for(int j = 0; j < allPersons.size(); j++) {
 				
-				Student tempI = allStudents.get(i);
-				Student tempJ = allStudents.get(j);
+				if(allPersons.get(i) instanceof Student && allPersons.get(j) instanceof Student){
 				
-				if(calculateAVGForStudent(tempJ) < calculateAVGForStudent(tempI) ) {
-					Student temp = allStudents.get(i);
-					allStudents.set(i, allStudents.get(j));
-					allStudents.set(j,  temp);
+					Student tempI = (Student)allPersons.get(i);
+					Student tempJ = (Student)allPersons.get(j);
+					
+					
+					if(calculateAVGForStudent(tempJ) < calculateAVGForStudent(tempI) ) {
+						Student temp = (Student)allPersons.get(i);
+						allPersons.set(i, allPersons.get(j));
+						allPersons.set(j,  temp);
+					}
 				}
+			
 			}
 		}
 		
 	}
-	*/
 	
 	// calculate how many professors have PhD as degree
 	
